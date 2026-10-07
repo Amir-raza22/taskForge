@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - TaskForge</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background: radial-gradient(circle at top left, rgba(254, 243, 199, 0.85), transparent 28%),
+                        radial-gradient(circle at bottom right, rgba(245, 158, 11, 0.14), transparent 22%),
+                        linear-gradient(180deg, #fffdf8 0%, #fff8ef 100%);
+            overflow: hidden;
+        }
+
+        .bg-shape {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(110px);
+            opacity: 0.28;
+            z-index: 1;
+        }
+
+        .shape-1 {
+            top: -17%;
+            left: -10%;
+            width: 560px;
+            height: 560px;
+            background: rgba(245, 158, 11, 0.22);
+        }
+
+        .shape-2 {
+            bottom: -12%;
+            right: -8%;
+            width: 400px;
+            height: 400px;
+            background: rgba(250, 204, 21, 0.20);
+        }
+
+        .auth-container {
+            position: relative;
+            z-index: 2;
+            width: min(100%, 460px);
+            padding: 3rem 2.5rem;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 30px;
+            box-shadow: 0 40px 110px rgba(15, 23, 42, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.92);
+            text-align: center;
+        }
+
+        .auth-logo-container {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 1.25rem;
+        }
+
+        .auth-logo {
+            width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #fcd34d, #f59e0b);
+            color: #ffffff;
+            font-size: 1.5rem;
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.18);
+        }
+
+        .auth-logo + .logo-text {
+            color: #111827;
+            font-size: 1.95rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            text-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+        }
+
+        .logo-bold {
+            color: var(--accent-color);
+        }
+
+        .auth-title {
+            font-size: 1.95rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 0.4rem;
+            color: #101828;
+        }
+
+        .auth-subtitle {
+            color: #667085;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.92rem;
+            font-weight: 600;
+            color: #667085;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1rem;
+            border-radius: 18px;
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: #f8fafc;
+            color: #101828;
+            transition: var(--transition);
+            box-sizing: border-box;
+            box-shadow: inset 0 2px 6px rgba(15, 23, 42, 0.05);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.18);
+            background: #ffffff;
+        }
+
+        .auth-btn {
+            width: 100%;
+            padding: 1rem 1rem;
+            background: linear-gradient(135deg, var(--accent-color), #f59e0b);
+            color: white;
+            border: none;
+            border-radius: 18px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 18px 38px rgba(245, 158, 11, 0.18);
+        }
+
+        .auth-btn:hover {
+            background: #d97706;
+            transform: translateY(-1px);
+        }
+
+        .auth-switch {
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: #667085;
+        }
+
+        .auth-switch a {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
+        .auth-switch a:hover {
+            text-decoration: underline;
+        }
+
+        .error-msg {
+            background: rgba(254, 226, 149, 0.45);
+            color: #92400e;
+            padding: 0.95rem;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: none;
+            text-align: left;
+        }
+
+        .view-hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="light-theme">
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
+    
+    <div class="auth-container">
+        <div class="brand taskforge-logo auth-logo-container">
+            <i class="fas fa-cube auth-logo"></i>
+            <span class="logo-text">Task<span class="logo-bold">Forge</span></span>
+        </div>
+        
+        <!-- Login View -->
+        <div id="loginView">
+            <h1 class="auth-title">Welcome back</h1>
+            <p class="auth-subtitle">Enter your details to access your workspace.</p>
+            
+            <div class="error-msg" id="loginError"></div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="auth-btn">Log In</button>
+            </form>
+            
+            <div class="auth-switch">
+                Don't have an account? <a id="showSignup">Sign up</a>
+            </div>
+        </div>
+        
+        <!-- Signup View -->
+        <div id="signupView" class="view-hidden">
+            <h1 class="auth-title">Create an account</h1>
+            <p class="auth-subtitle">Build momentum, one focused task at a time.</p>
+            
+            <div class="error-msg" id="signupError"></div>
+            
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Username</label>
+                    <input type="text" id="signupName" class="form-input" placeholder="Alex Doe" required minlength="2">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" class="form-input" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" class="form-input" placeholder="••••••••" required minlength="6">
+                </div>
+                <button type="submit" class="auth-btn">Sign Up</button>
+            </form>
+            
+            <div class="auth-switch">
+                Already have an account? <a id="showLogin">Log in</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Init theme
+        const theme = localStorage.getItem('theme') || 'light';
+        document.body.className = theme === 'dark' ? 'dark-theme' : 'light-theme';
+
+        const loginView = document.getElementById('loginView');
+        const signupView = document.getElementById('signupView');
+        
+        document.getElementById('showSignup').addEventListener('click', () => {
+            loginView.classList.add('view-hidden');
+            signupView.classList.remove('view-hidden');
+        });
+        
+        document.getElementById('showLogin').addEventListener('click', () => {
+            signupView.classList.add('view-hidden');
+            loginView.classList.remove('view-hidden');
+        });
+
+        const getUsers = () => JSON.parse(localStorage.getItem('users')) || [];
+        const saveUsers = (users) => localStorage.setItem('users', JSON.stringify(users));
+
+        const showError = (elementId, msg) => {
+            const el = document.getElementById(elementId);
+            el.textContent = msg;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 4000);
+        };
+
+        document.getElementById('signupForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value;
+
+            const users = getUsers();
+            if (users.find(u => u.email === email)) {
+                showError('signupError', 'Email is already registered. Please log in.');
+                return;
+            }
+
+            users.push({ name, email, password });
+            saveUsers(users);
+
+            // Auto-login
+            sessionStorage.setItem('authenticated', 'true');
+            sessionStorage.setItem('userEmail', email);
+            sessionStorage.setItem('userName', name);
+            sessionStorage.setItem('showFrontPage', 'true');
+            sessionStorage.setItem('welcomeMode', 'signup');
+            window.location.href = 'index.html';
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            const users = getUsers();
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (!user) {
+                showError('loginError', 'Invalid email or password.');
+                return;
+            }
+
+            sessionStorage.setItem('authenticated', 'true');
+            sessionStorage.setItem('userEmail', user.email);
+            sessionStorage.setItem('userName', user.name);
+            sessionStorage.setItem('showFrontPage', 'true');
+            sessionStorage.setItem('welcomeMode', 'login');
+            window.location.href = 'index.html';
+        });
+    </script>
+</body>
+</html>
